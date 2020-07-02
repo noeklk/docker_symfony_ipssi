@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdditionController!{% endblock %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th></th>
+            {%  for c in colonne %}
+                <th>{{c}}</th>
+            {%  endfor %}
+        </tr> 
+        {%  for l in ligne %}
+            <tr>
+                <th>{{l}}</th>
+                {%  for c in colonne %}
+                    <td>{{l+c}}</th>
+                {%  endfor %}
+            </tr>
+        {%  endfor %}
+    </table>
+
+    <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax'), 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')+1})}}">Ajouter une ligne</a>
+    <br>
+    <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax')+1, 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')})}}">Ajouter une colonne</a>
+{% endblock %}
