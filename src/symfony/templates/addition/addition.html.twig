@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdditionController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th> </th>
+                {% for i in range(xmin,xmax,1) %} 
+                <th>{{ i }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for j in range(ymin,ymax,1) %} 
+            <tr>
+                <th>{{j}}</th>
+                {% for k in range(xmin,xmax,1) %}
+                <td>{{ j + k }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('addition_action', {'xmin' : xmin ,'xmax' : xmax ,'ymin' : ymin ,'ymax' : (ymax + 1) }) }}">Ajouter une ligne</a>
+        </li>
+        <li>
+            <a href="{{ path('addition_action', {'xmin' : xmin ,'xmax' : (xmax + 1) ,'ymin' : ymin ,'ymax' : ymax }) }}">Ajouter une colonne</a>
+        </li>
+    </ul>
+
+    <ul>
+        <li>
+            <a href="{{ path('addition_action', {'xmin' : xmin ,'xmax' : xmax ,'ymin' : ymin ,'ymax' : (ymax - 1) }) }}">Supprimer une ligne</a>
+        </li>
+        <li>
+            <a href="{{ path('addition_action', {'xmin' : xmin ,'xmax' : (xmax - 1) ,'ymin' : ymin ,'ymax' : ymax }) }}">Supprimer une colonne</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
