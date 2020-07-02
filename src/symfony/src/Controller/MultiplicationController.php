@@ -44,10 +44,16 @@ class MultiplicationController extends AbstractController
     {
 
         //Get from session
-        $xmin = $session->get('xmin', 0);
+        $xmin = $session->get('xmin', 1);
         $xmax = $session->get('xmax', 10);
-        $ymin = $session->get('ymin', 0);
+        $ymin = $session->get('ymin', 1);
         $ymax = $session->get('ymax', 10);
+
+        //Save in session
+        $session->set('xmin', $xmin);
+        $session->set('xmax', $xmax);
+        $session->set('ymin', $ymin);
+        $session->set('ymax', $ymax);
 
         $ligne = [];
         $colonne = [];
@@ -62,11 +68,6 @@ class MultiplicationController extends AbstractController
             array_push($ligne, $i);
         }
 
-        //Save in session
-        $session->set('xmin', $xmin);
-        $session->set('xmax', $xmax);
-        $session->set('ymin', $ymin);
-        $session->set('ymax', $ymax);
 
         return $this->render('multiplication/index.html.twig', [
             'ligne' => $ligne,
