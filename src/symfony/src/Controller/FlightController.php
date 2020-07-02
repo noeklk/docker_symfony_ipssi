@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Flight;
+use App\Form\FlightType;
 use App\Repository\FlightRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -13,12 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FlightController extends AbstractController
 {
+    private $_repository;
+
+    public function __construct(FlightRepository $repository)
+    {
+        $this->_repository = $repository;
+    }
+
     /**
      * @Route("/", name="flight_index")
      */
-    public function indexAction(FlightRepository $repository)
+    public function indexAction()
     {
-        $flights = $repository->findAll();
+        $flights = $this->_repository->findAll();
 
         return $this->render('flight/index.html.twig', array(
             'flights' => $flights
@@ -28,12 +37,13 @@ class FlightController extends AbstractController
     /**
      * @Route("/view/{id}", name="flight_view")
      */
-    public function viewAction($id, FlightRepository $repository)
+    public function viewAction($id)
     {
-        $flight = $repository->find($id);
+        $flight = $this->_repository->find($id);
 
-        if (is_null($flight))
+        if (is_null($flight)) {
             throw $this->createNotFoundException('Page introuvable.');
+        }
 
         return $this->render('flight/view.html.twig', array(
             "flight" => $flight

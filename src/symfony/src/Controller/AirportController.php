@@ -11,13 +11,20 @@ use Symfony\Component\Routing\Annotation\Route;
 /** @Route("/airport") */
 class AirportController extends AbstractController
 {
+    private $_repository;
+
+    public function __construct(AirportRepository $repository)
+    {
+        $this->_repository = $repository;
+    }
+
     /**
      * @Route("/{page}/{col}/{sens}", name="airport_index", requirements={"page"="\d+", "sens"="asc|desc"}, defaults={"col":"id", "sens":"ASC", "page": 1})
      */
-    public function indexAction($page, $col, $sens, AirportRepository $repository)
+    public function indexAction($page, $col, $sens)
     {
-        $airports = $repository->findAllWithPaginationAndOrder($page, $col, $sens);
-        $airportsNumber = $repository->getAllCount();
+        $airports = $this->_repository->findAllWithPaginationAndOrder($page, $col, $sens);
+        $airportsNumber = $this->_repository->getAllCount();
 
         return $this->render('airport/index.html.twig', array(
             "airports" => $airports,
@@ -31,9 +38,9 @@ class AirportController extends AbstractController
     /**
      * @Route("/index/{letter}", name="airport_list_alpha", requirements={"letter": "[A-Z]{1}"})
      */
-    public function indexLetterAction($letter, AirportRepository $repository)
+    public function indexLetterAction($letter)
     {
-        $airports = $repository->findAllByFirstLetter($letter);
+        $airports = $this->_repository->findAllByFirstLetter($letter);
 
         return $this->render('Airport/index-letter.html.twig', array(
             "airports" => $airports,
@@ -47,14 +54,12 @@ class AirportController extends AbstractController
      */
     public function viewAction($id)
     {
-        $airport = $this->getDoctrine()
-            ->getRepository('AppBundle:Airport')
-            ->find($id);
+        $airport = $this->_repository->find($id);
 
         if (is_null($airport))
             throw $this->createNotFoundException('Page introuvable.');
 
-        return $this->render('@App/Airport/view.html.twig', array(
+        return $this->render('airport/view.html.twig', array(
             "airport" => $airport
         ));
     }
@@ -66,8 +71,7 @@ class AirportController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $airport = $em->getRepository('AppBundle:Airport')
-            ->find($id);
+        $airport = $this->_repository->find($id);
 
         if (is_null($airport))
             throw $this->createNotFoundException('Page introuvable.');
@@ -85,8 +89,7 @@ class AirportController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $airport = $em->getRepository('AppBundle:Airport')
-            ->find($id);
+        $airport = $this->_repository->find($id);
 
         if (is_null($airport))
             throw $this->createNotFoundException('Page introuvable.');
@@ -111,8 +114,7 @@ class AirportController extends AbstractController
         $flight = new Flight();
         $flight->setNumber('XX999');
 
-        $arrival = $em->getRepository('AppBundle:Airport')
-            ->find(4185);
+        $arrival = $this->_repository->find(4185);
 
         $flight->setArrival($arrival);
         $flight->setDeparture($airport);

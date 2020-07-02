@@ -9,15 +9,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Airport;
+use App\Entity\Flight;
 
 class FlightType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('number')
+        $builder
+            ->add('number')
             ->add('departure', EntityType::class, array(
                 'class' => Airport::class,
                 'choice_label' => 'name'
@@ -26,23 +25,18 @@ class FlightType extends AbstractType
                 'class' => Airport::class,
                 'choice_label' => 'name'
             ))
-            ->add('enregistrer', SubmitType::class, ['label' => 'Enregistrer']);
+            ->add('price');
     }
-    /**
-     * {@inheritdoc}
-     */
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Flight'
+            'data_class' => Flight::class
         ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'app_flight';
-    }
+    // public function getBlockPrefix()
+    // {
+    //     return 'app_flight';
+    // }
 }

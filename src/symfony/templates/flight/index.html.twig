@@ -10,6 +10,7 @@
         <th>Numéro</th>
         <th>Départ</th>
         <th>Arrivée</th>
+        <th>Prix</th>
     </tr>
     {% for flight in flights %}
         <tr>
@@ -17,6 +18,7 @@
             <td><a href="{{ path('flight_view', { 'id': flight.id }) }}">{{ flight.number }}</a></td>
             <td>{{ flight.departure.name }}</td>
             <td>{{ flight.arrival.name }}</td>
+            <td>{{ flight.price }}</td>
         </tr>
     {% else %}
         <tr>

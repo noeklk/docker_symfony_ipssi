@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Passenger;
 use App\Repository\PassengerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,12 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PassengerController extends AbstractController
 {
+    private $_repository;
+
+    public function __construct(PassengerRepository $repository)
+    {
+        $this->_repository = $repository;
+    }
+
     /**
      * @Route("/", name="passenger_index")
      */
-    public function indexAction(PassengerRepository $repository)
+    public function indexAction()
     {
-        $passengers = $repository->findAll();
+        $passengers = $this->_repository->findAll();
 
         return $this->render('passenger/index.html.twig', array(
             'passengers' => $passengers
