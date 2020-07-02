@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste des aéroports{% endblock %}
+
+{% block body %}
+<h1>Liste des aéroports</h1>
+<a href="{{ path('airport_add') }}">Ajouter</a>
+<br>
+{% for letter in 'A'..'Z' %} 
+<a href="{{ path('airport_list_alpha', { 'letter': letter }) }}">{{ letter }}</a>
+{% endfor %}
+<table>
+    <tr>
+        <th>Id
+            <a href="{{ path('airport_index', { 'page': 1, 'col': 'id', 'sens': 'desc' }) }}">&uarr;</a>
+            <a href="{{ path('airport_index', { 'page': 1, 'col': 'id', 'sens': 'asc' }) }}">&darr;</a>
+        </th>
+        <th>Identité
+            <a href="{{ path('airport_index', { 'page': 1, 'col': 'ident', 'sens': 'desc' }) }}">&uarr;</a>
+            <a href="{{ path('airport_index', { 'page': 1, 'col': 'ident', 'sens': 'asc' }) }}">&darr;</a>
+        </th>
+        <th>Nom</th>
+        <th>Pays</th>
+        <th>Code IATA</th>
+    </tr>
+    {% for airport in airports %}
+        <tr>
+            <td>{{ airport.id }}</td>
+            <td>{{ airport.ident }}</td>
+            <td><a href="{{ path('airport_view', { 'id': airport.id }) }}">{{ airport.name }}</a></td>
+            <td>{{ airport.isoCountry }}</td>
+            <td>{{ airport.iataCode }}</td>
+            <td>
+                <a href="{{ path('airport_delete', { 'id': airport.id }) }}">Supprimer</a>
+                <a href="{{ path('airport_edit', { 'id': airport.id }) }}">Modifier</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">Aucun aéroport</td>
+        </tr>
+    {% endfor %}
+</table>
+{% if page > 1 %}
+    <a href="{{ path('airport_index', { 'page': page - 1, 'col': col, 'sens': sens }) }}">Page précédente</a>
+{% endif %}
+Page {{ page }}
+{% if page * 20 < airportsNumber %}
+<a href="{{ path('airport_index', { 'page': page + 1, 'col': col, 'sens': sens }) }}">Page suivante</a>
+{% endif %}
+{% endblock %}

@@ -21,7 +21,6 @@ class AirportRepository extends ServiceEntityRepository
 
     public function getAllCount()
     {
-
         $airportsNumber = $this->createQueryBuilder('a')
             ->select('count(a.id)')
             ->getQuery()
