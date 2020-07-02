@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Détails d'un aéroport{% endblock %}
+
+{% block body %}
+<a href="{{ path('airport_index') }}">Retour</a>
+<h1>{{ airport.name }}</h1>
+<ul>
+    <li>Identité : {{ airport.ident }}</li>
+    <li>Pays : {{ airport.isoCountry }}</li>
+</ul>    
+<h2>Vols au départ</h2>
+<table>
+    <tr>
+        <th>Numéro</th>
+        <th>Destination</th>
+    </tr>
+    {% for flight in airport.departures %}
+        <tr>
+            <td><a href="{{ path('flight_view', { 'id': flight.id }) }}">{{ flight.number }}</a></td>
+            <td>{{ flight.arrival.name }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3">Aucun vol au départ</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<h2>Vols à l'arrivée</h2>
+<table>
+    <tr>
+        <th>Numéro</th>
+        <th>Provenance</th>
+    </tr>
+    {% for flight in airport.arrivals %}
+        <tr>
+            <td><a href="{{ path('flight_view', { 'id': flight.id }) }}">{{ flight.number }}</a></td>
+            <td>{{ flight.departure.name }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3">Aucun vol à l'arrivée</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

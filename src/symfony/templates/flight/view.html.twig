@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Détails d'un vol{% endblock %}
+
+{% block body %}
+<a href="{{ path('flight_index') }}">Retour</a>
+<h1>Vol {{ flight.number }}</h1>
+<ul>
+    <li>Départ : {{ flight.departure.iataCode }} - {{ flight.departure.name }}</li>
+    <li>Arrivée : {{ flight.arrival.iataCode }} - {{ flight.arrival.name }}</li>
+</ul>    
+<h2>Passagers</h2>
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Passeport</th>
+    </tr>
+    {% for passenger in flight.passengers %}
+        <tr>
+            <td>{{ passenger.lastName }}</td>
+            <td>{{ passenger.firstName }}</td>
+            <td>{{ passenger.passportNumber }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3">Aucun passager sur ce vol</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

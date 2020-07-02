@@ -1,20 +1,27 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title %}Hello FlightController!{% endblock %}
+{% block title %}Liste des vols{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/symfony/src/Controller/FlightController.php'|file_link(0) }}">src/Controller/FlightController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/symfony/templates/flight/index.html.twig'|file_link(0) }}">templates/flight/index.html.twig</a></code></li>
-    </ul>
-</div>
+<h1>Liste des vols</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Numéro</th>
+        <th>Départ</th>
+        <th>Arrivée</th>
+    </tr>
+    {% for flight in flights %}
+        <tr>
+            <td>{{ flight.id }}</td>
+            <td><a href="{{ path('flight_view', { 'id': flight.id }) }}">{{ flight.number }}</a></td>
+            <td>{{ flight.departure.name }}</td>
+            <td>{{ flight.arrival.name }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">Aucun vol</td>
+        </tr>
+    {% endfor %}
+</table>
 {% endblock %}

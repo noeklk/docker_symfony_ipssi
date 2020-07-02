@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajout de passager{% endblock %}
+
+{% block body %}
+<a href="{{ path('passenger_index') }}">Retour</a>
+<h1>Ajouter un passager</h1>
+{{ form_start(formulaire) }}
+{{ form_widget(formulaire) }}
+{{ form_end(formulaire) }}
+{% endblock %}

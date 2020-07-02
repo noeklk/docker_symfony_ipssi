@@ -4,32 +4,22 @@ namespace App\Controller;
 
 use App\Entity\Airport;
 use App\Entity\Flight;
+use App\Repository\AirportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/** @Route("/airport") */
 class AirportController extends AbstractController
 {
     /**
-     * @Route("/airport", name="airport")
+     * @Route("/{page}/{col}/{sens}", name="airport_index", requirements={"page"="\d+", "sens"="asc|desc"}, defaults={"col":"id", "sens":"ASC", "page": 1})
      */
-    public function index()
+    public function indexAction($page, $col, $sens, AirportRepository $repository)
     {
-        return $this->render('airport/index.html.twig', [
-            'controller_name' => 'AirportController',
-        ]);
-    }
+        $airports = $repository->findAllWithPaginationAndOrder($page, $col, $sens);
+        $airportsNumber = $repository->getAllCount();
 
-    /**
-     * @Route("/index/{page}/{col}/{sens}", name="airport_index", requirements={"page"="\d+", "sens"="asc|desc"}, defaults={"col":"id", "sens":"ASC", "page":1})
-     */
-    public function indexAction($page, $col, $sens)
-    {
-        $repo = $this->getDoctrine()->getRepository(Airport::class);
-        $airports = $repo->findAllWithPaginationAndOrder($page, $col, $sens);
-
-        $airportsNumber = $repo->getAllCount();
-
-        return $this->render('Airport/index.html.twig', array(
+        return $this->render('airport/index.html.twig', array(
             "airports" => $airports,
             "airportsNumber" => $airportsNumber,
             "page" => $page,
@@ -41,11 +31,9 @@ class AirportController extends AbstractController
     /**
      * @Route("/index/{letter}", name="airport_list_alpha", requirements={"letter": "[A-Z]{1}"})
      */
-    public function indexLetterAction($letter)
+    public function indexLetterAction($letter, AirportRepository $repository)
     {
-        $airports = $this->getDoctrine()
-            ->getRepository(Airport::class)
-            ->findAllByFirstLetter($letter);
+        $airports = $repository->findAllByFirstLetter($letter);
 
         return $this->render('Airport/index-letter.html.twig', array(
             "airports" => $airports,
