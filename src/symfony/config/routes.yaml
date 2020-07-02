@@ -1,0 +1,7 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+check-name:
+    path: /form/check-name
+    controller : App\Controller\FormController::checkName

@@ -1,0 +1,42 @@
+version: '3.6'
+services:
+    db:
+      container_name: mysql-ct
+      image: mysql:5
+      environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        MYSQL_USER: 'root'
+      volumes:
+        - mysql-volume:/var/lib/mysql
+      
+    maildev:
+      container_name: maildev-ct
+      image: djfarrelly/maildev
+      ports:
+        - "8002:80"
+  
+    phpmyadmin:
+      container_name: phpmyadmin-ct
+      image: phpmyadmin/phpmyadmin
+      ports:
+          - "8080:80"
+      depends_on:
+          - db
+      environment:
+        PMA_HOST: db
+ 
+
+    php747:
+      container_name: php747-ct
+      build: php747
+      ports:
+        - "8000:80"
+      volumes:
+          - ./docker/vhosts:/etc/apache2/sites-enabled/000-default.conf
+          - ./src:/var/www/
+
+volumes:
+  mysql-volume:
+
+
+    
