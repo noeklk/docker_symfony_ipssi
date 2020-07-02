@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(
+ * @ORM\Entity(repositoryClass="App\Repository\FlightRepository")
  */
 class Flight
 {
@@ -44,4 +46,88 @@ class Flight
      * @ORM\Column(type="string", type="decimal", precision=7, scale=2, nullable=true)
      */
     private $price;
+
+    public function __construct()
+    {
+        $this->passengers = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNumber(): ?string
+    {
+        return $this->number;
+    }
+
+    public function setNumber(string $number): self
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getDeparture(): ?Airport
+    {
+        return $this->departure;
+    }
+
+    public function setDeparture(?Airport $departure): self
+    {
+        $this->departure = $departure;
+
+        return $this;
+    }
+
+    public function getArrival(): ?Airport
+    {
+        return $this->arrival;
+    }
+
+    public function setArrival(?Airport $arrival): self
+    {
+        $this->arrival = $arrival;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Passenger[]
+     */
+    public function getPassengers(): Collection
+    {
+        return $this->passengers;
+    }
+
+    public function addPassenger(Passenger $passenger): self
+    {
+        if (!$this->passengers->contains($passenger)) {
+            $this->passengers[] = $passenger;
+        }
+
+        return $this;
+    }
+
+    public function removePassenger(Passenger $passenger): self
+    {
+        if ($this->passengers->contains($passenger)) {
+            $this->passengers->removeElement($passenger);
+        }
+
+        return $this;
+    }
 }
