@@ -2,17 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\FlightRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=FlightRepository::class)
+ * @ORM\Entity(
  */
 class Flight
 {
     /**
-     * @var int
-     * 
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,21 +17,17 @@ class Flight
     private $id;
 
     /**
-     * @var string
-     * 
      * @ORM\Column(type="string", length=6)
      */
     private $number;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Airport", inversedBy="departures")
      * @ORM\JoinColumn(name="departure_id", referencedColumnName="id") 
      */
     private $departure;
 
     /**
-     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Airport", inversedBy="arrivals")
      * @ORM\JoinColumn(name="arrival_id", referencedColumnName="id") 
      */
