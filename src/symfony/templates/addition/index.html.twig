@@ -17,6 +17,9 @@
                 <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax')+1, 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')})}}">
                     <i class="material-icons round">add</i>
                 </a>
+                <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax')-1, 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')})}}">
+                    <i class="material-icons round">remove</i>
+                </a>
             </td>
         </tr> 
         {%  for l in ligne %}
@@ -31,6 +34,9 @@
             <td>
                 <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax'), 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')+1})}}">
                     <i class="material-icons round">add</i>
+                </a>
+                <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax'), 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')-1})}}">
+                    <i class="material-icons round">remove</i>
                 </a>
             </td>
         </tr>
