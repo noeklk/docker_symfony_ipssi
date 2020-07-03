@@ -47,6 +47,12 @@ class Flight
      */
     private $price;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Aircraft", inversedBy="flights")
+     * @ORM\JoinColumn(name="aircraft_id", referencedColumnName="id")
+     */
+    private $aircraft;
+
     public function __construct()
     {
         $this->passengers = new ArrayCollection();
