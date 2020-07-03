@@ -7,14 +7,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
-class AdditionController extends AbstractController
+class MultiplicationController extends AbstractController
 {
     /**
-     * @Route("/addition", name="addition")
+     * @Route("/multiplication", name="multiplication")
      */
     public function index(SessionInterface $session)
     {
-
         $xmin = $session->get('xmin', 1); 
         $xmax = $session->get('xmax' , 10); 
         $ymin = $session->get('ymin', 1); 
@@ -26,19 +25,18 @@ class AdditionController extends AbstractController
         $session->set('ymax', $ymax);
 
 
-        return $this->render('addition/index.html.twig', [
-            'controller_name' => 'Index Addition Controller',
+        return $this->render('multiplication/index.html.twig', [
+            'controller_name' => 'Index Multiplication Controller',
             'xmin' => $xmin,
             'xmax' => $xmax,
             'ymin' => $ymin,
             'ymax' => $ymax,
         ]);
     }
-
      /**
-     * @Route("/addition/{xmin}/{xmax}/{ymin}/{ymax}", name="addition_action", requirements = {"xmin"="^[1-9]\d*$","xmax"="^[1-9]\d*$","ymin"="^[1-9]\d*$","ymax"="^[1-9]\d*$", })
+     * @Route("/multiplication/{xmin}/{xmax}/{ymin}/{ymax}", name="multiplication_action", requirements = {"xmin"="^[1-9]\d*$","xmax"="^[1-9]\d*$","ymin"="^[1-9]\d*$","ymax"="^[1-9]\d*$", })
      */
-    public function additionAction($xmin, $xmax, $ymin, $ymax, SessionInterface $session)
+    public function multiplicationAction($xmin, $xmax, $ymin, $ymax, SessionInterface $session)
     {
         
         if($xmin> $xmax) {
@@ -59,13 +57,12 @@ class AdditionController extends AbstractController
         $session->set('ymax', $ymax);
 
 
-        return $this->render('addition/addition.html.twig', [
-            'controller_name' => 'Addition Controller',
+        return $this->render('multiplication/multiplication.html.twig', [
+            'controller_name' => 'Multiplication Controller',
             'xmin' => $xmin,
             'xmax' => $xmax,
             'ymin' => $ymin,
             'ymax' => $ymax,
         ]);
     }
-
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdditionController!{% endblock %}
+{% block title %}Hello MultiplicationController!{% endblock %}
 
 {% block body %}
 <style>
@@ -14,7 +14,7 @@
     <table>
         <thead>
             <tr>
-                <th>+</th>
+                <th> </th>
                 {% for i in range(xmin,xmax,1) %} 
                 <th>{{ i }}</th>
                 {% endfor %}
@@ -25,13 +25,13 @@
             <tr>
                 <th>{{j}}</th>
                 {% for k in range(xmin,xmax,1) %}
-                <td>{{ j + k }}</td>
+                <td>{{ j * k }}</td>
                 {% endfor %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    
+
     <ul>
         <li>
             <a href="{{ path('addition_action', {'xmin' : xmin ,'xmax' : xmax ,'ymin' : ymin ,'ymax' : (ymax + 1) }) }}">Ajouter une ligne</a>
