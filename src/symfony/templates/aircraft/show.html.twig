@@ -22,6 +22,28 @@
         </tbody>
     </table>
 
+    <h1>Vols</h1>
+
+    <table>
+    <tr>
+        <th>Vol numéro</th>
+        <th>Départ</th>
+        <th>Arrivé</th>
+    </tr>
+    {% for flight in aircraft.flights %}
+        <tr>
+            <td>{{ flight.number }}</td>
+            <td>{{ flight.departure.iataCode }} - {{ flight.departure.name }}</td>
+            <td>{{ flight.arrival.iataCode }} - {{ flight.arrival.name }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3">Aucun Vol sur ce model</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
     <a href="{{ path('aircraft_index') }}">back to list</a>
 
     <a href="{{ path('aircraft_edit', {'id': aircraft.id}) }}">edit</a>
