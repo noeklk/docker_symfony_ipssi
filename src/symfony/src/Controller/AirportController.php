@@ -9,6 +9,8 @@ use App\Repository\AirportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 
 
 /** @Route("/airport") */
@@ -68,7 +70,7 @@ class AirportController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="airport_delete")
+     * @Route("/delete/{id}", name="airport_delete", methods={"DELETE"})
      */
     public function deleteAction($id)
     {
@@ -83,24 +85,38 @@ class AirportController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('airport_index');
+
+        // if ($this->isCsrfTokenValid('delete'.$airport->getId(), $request->request->get('_token'))) {
+        //     $entityManager = $this->getDoctrine()->getManager();
+        //     $entityManager->remove($airport);
+        //     $entityManager->flush();
+        // }
+
+        // return $this->redirectToRoute('airport_index');
     }
 
     /**
-     * @Route("/edit/{id}", name="airport_edit")
+     * @Route("/edit/{id}", name="airport_edit", methods={"GET","POST"})
      */
-    public function editAction($id)
+    public function editAction(Request $request, Airport $airport): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        
+        $form = $this->createForm(AirportType::class, $airport);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
 
-        $airport = $this->_repository->find($id);
+            return $this->redirectToRoute('airport_index');
+        }
 
-        if (is_null($airport))
-            throw $this->createNotFoundException('Page introuvable.');
+        return $this->render('airport/edit.html.twig', [
+            'airport' => $airport,
+            'form' => $form->createView(),
+        ]);
 
-        $airport->setName($airport->getName() . 'Z');
-        $em->flush();
 
-        return $this->redirectToRoute('airport_index');
+        
     }
 
     /**

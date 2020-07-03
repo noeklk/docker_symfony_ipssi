@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Aircraft;
 use App\Form\AircraftType;
+use App\Entity\Flight;
 use App\Repository\AircraftRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,7 +54,7 @@ class AircraftController extends AbstractController
      */
     public function show(Aircraft $aircraft): Response
 
-    
+
     {
         return $this->render('aircraft/show.html.twig', [
             'aircraft' => $aircraft,
