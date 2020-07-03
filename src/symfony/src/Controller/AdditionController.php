@@ -10,10 +10,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdditionController extends AbstractController
 {
     /**
-     * @Route("/addition/{xmin}/{xmax}/{ymin}/{ymax}", name="addition")
+     * @Route("/addition/{xmin}/{xmax}/{ymin}/{ymax}", name="addition" , requirements={"xmin"="^[0-9]+", "xmax"="^[0-9]+", "x=ymin"="^[0-9]+", "ymax"="^[0-9]+"})
      */
     public function additionAction($xmin,$xmax,$ymin,$ymax, SessionInterface $session)
     {
+        //verif si xmin et ymin > ymin et ymax
+        if($xmin > $xmax) {
+            $tmp = $xmin;
+            $xmin = $xmax;
+            $xmax = $tmp;
+        }
+        if($ymin > $ymax) {
+            $tmp = $ymin;
+            $ymin = $ymax;
+            $ymax = $tmp;
+        }
+
         $ligne = range($ymin, $ymax);
         $colonne = range($xmin, $xmax);
 
@@ -55,4 +67,5 @@ class AdditionController extends AbstractController
             'colonne' => $colonne,
         ]);
     }
+
 }
