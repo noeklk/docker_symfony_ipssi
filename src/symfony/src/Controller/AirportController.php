@@ -114,9 +114,7 @@ class AirportController extends AbstractController
         $flight = new Flight();
         $flight->setNumber('XX999');
 
-        $arrival = $this->_repository->find(4185);
-
-        $flight->setArrival($arrival);
+        $flight->setArrival($airport);
         $flight->setDeparture($airport);
 
         $airport->addDeparture($flight);
