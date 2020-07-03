@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="height:100%;">
+<html>
 	<head>
 		<meta charset="UTF-8">
 		<title>
@@ -8,29 +8,33 @@
 		</title>
 		{% block stylesheets %}
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		{% endblock %}
+		<style>
+			{{ include('assets/css/main.css') }}
+		</style>
 	</head>
-	<body style="height: 100%;">
 
-        <div style="display:flex; justify-content: space-between; flex-direction: column; height:100%;">
+	<body>
 
-        {{ include('header/header.html.twig') }}
+		<div class="main-page">
 
-		<div class="container"> 
-            {% block body %}
-            
-            {% endblock %}
+			<!-- Header -->
+			{{ include('header/header.html.twig') }}
+
+			<!-- Body -->
+			<div class="container"> 
+				{% block body %}{% endblock %}
+			</div>
+
+			<!-- Footer -->
+			{{ include('footer/footer.html.twig') }}
+
 		</div>
 
-        {{ include('footer/footer.html.twig') }}
-
-        </div>
-			
-        
-            {% block javascripts %}
+			{% block javascripts %}
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 			{% endblock %}
-	</body>
-
+		</body>
 
 	</html>

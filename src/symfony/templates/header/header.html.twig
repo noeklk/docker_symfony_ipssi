@@ -1,6 +1,13 @@
-{% block body %}
-	<header style="width: 100%;">
-		<a href="{{path('addition_index')}}">Addition</a>
-		<a href="{{path('multiplication_index')}}">Multiplication</a>
-	</header>
-{% endblock %}
+<nav class="header">
+	<div class="nav-wrapper">
+		<a href="#" class="brand-logo">{{name}}</a>
+		<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<li>
+				<a href="{{path('addition_index')}}">Addition</a>
+			</li>
+			<li>
+				<a href="{{path('multiplication_index')}}">Multiplication</a>
+			</li>
+		</ul>
+	</div>
+</nav>

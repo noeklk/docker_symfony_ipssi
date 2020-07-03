@@ -3,12 +3,21 @@
 {% block title %}Hello AdditionController!{% endblock %}
 
 {% block body %}
-    <table>
+    <div class="center-align">
+        <h1>Table d'addition<h1>
+    </div>
+
+    <table class="table">
         <tr>
             <th>+</th>
             {%  for c in colonne %}
                 <th>{{c}}</th>
             {%  endfor %}
+            <td>
+                <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax')+1, 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')})}}">
+                    <i class="material-icons round">add</i>
+                </a>
+            </td>
         </tr> 
         {%  for l in ligne %}
             <tr>
@@ -18,9 +27,13 @@
                 {%  endfor %}
             </tr>
         {%  endfor %}
+        <tr>
+            <td>
+                <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax'), 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')+1})}}">
+                    <i class="material-icons round">add</i>
+                </a>
+            </td>
+        </tr>
     </table>
 
-    <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax'), 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')+1})}}">Ajouter une ligne</a>
-    <br>
-    <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax')+1, 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')})}}">Ajouter une colonne</a>
-{% endblock %}
+    {% endblock %}
