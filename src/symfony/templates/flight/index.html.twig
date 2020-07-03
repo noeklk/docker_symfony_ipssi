@@ -4,12 +4,15 @@
 
 {% block body %}
 <h1>Liste des vols</h1>
+<a href="{{ path('flight_add') }}">Ajouter</a>
+<br>
 <table>
     <tr>
         <th>Id</th>
         <th>Numéro</th>
         <th>Départ</th>
         <th>Arrivée</th>
+        <th>Avion</th>
         <th>Prix</th>
     </tr>
     {% for flight in flights %}
@@ -18,7 +21,10 @@
             <td><a href="{{ path('flight_view', { 'id': flight.id }) }}">{{ flight.number }}</a></td>
             <td>{{ flight.departure.name }}</td>
             <td>{{ flight.arrival.name }}</td>
-            <td>{{ flight.price }}</td>
+            <td>
+                <a href="{{ path('aircraft_show', { 'id': flight.aircraft.id }) }}">{{ flight.aircraft.manufacturer }} - {{ flight.aircraft.basicType }}</a>
+            </td>
+            <td>{{ flight.price }} €</td>
         </tr>
     {% else %}
         <tr>

@@ -52,6 +52,8 @@ class AircraftController extends AbstractController
      * @Route("/{id}", name="aircraft_show", methods={"GET"})
      */
     public function show(Aircraft $aircraft): Response
+
+    
     {
         return $this->render('aircraft/show.html.twig', [
             'aircraft' => $aircraft,

@@ -8,7 +8,11 @@
 <ul>
     <li>Départ : {{ flight.departure.iataCode }} - {{ flight.departure.name }}</li>
     <li>Arrivée : {{ flight.arrival.iataCode }} - {{ flight.arrival.name }}</li>
-</ul>    
+</ul>
+<h2>Avion</h2>
+<ul>
+    <li>{{ flight.aircraft.manufacturer }} - {{ flight.aircraft.basicType }}</li>
+</ul>
 <h2>Passagers</h2>
 <table>
     <tr>

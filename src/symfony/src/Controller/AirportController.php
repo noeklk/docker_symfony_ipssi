@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Airport;
 use App\Entity\Flight;
+use App\Form\AirportType;
 use App\Repository\AirportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+
 
 /** @Route("/airport") */
 class AirportController extends AbstractController
@@ -103,27 +106,29 @@ class AirportController extends AbstractController
     /**
      * @Route("/add", name="airport_add")
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $airport = new Airport();
-        $airport->setIdent('XXXX');
-        $airport->setName('Test ajout aeroport 2');
+        
+        $form = $this->createForm(AirportType::class, $airport);
+        $form->handleRequest($request);
 
-        $flight = new Flight();
-        $flight->setNumber('XX999');
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($airport);
+            $entityManager->flush();
 
-        $arrival = $this->_repository->find(4185);
+            return $this->redirectToRoute('airport_index');
+        }
 
-        $flight->setArrival($arrival);
-        $flight->setDeparture($airport);
 
-        $airport->addDeparture($flight);
+        return $this->render('airport/add.html.twig', [
+            'airport' => $airport,
+            'form' => $form->createView(),
+        ]);
 
-        $em->persist($airport);
-        $em->flush();
-
-        return $this->redirectToRoute('airport_index');
+        
     }
 }

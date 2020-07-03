@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\AircraftRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+
 
 /**
  * @ORM\Entity(repositoryClass=AircraftRepository::class)
@@ -26,6 +28,11 @@ class Aircraft
      * @ORM\Column(type="string", length=255)
      */
     private $basicType;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Flight", mappedBy="aircraft")
+     */
+    private $flights;
 
     public function getId(): ?int
     {
@@ -52,6 +59,24 @@ class Aircraft
     public function setBasicType(string $basicType): self
     {
         $this->basicType = $basicType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Flight[]
+     */
+    public function getFlights(): Collection
+    {
+        return $this->flights;
+    }
+
+    public function addFlight(Flight $flight)
+    {
+        if (!$this->flights->contains($flight)) {
+            $this->flights[] = $flight;
+            $flight->setAircraft($this);
+        }
 
         return $this;
     }

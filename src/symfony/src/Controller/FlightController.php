@@ -75,4 +75,38 @@ class FlightController extends AbstractController
             'formulaire' => $formulaire->createView()
         ));
     }
+
+    /**
+     * @Route("/{id}/edit", name="flight_edit", methods={"GET","POST"})
+     */
+    public function editAction(Request $request, Flight $flight)
+    {
+        $form = $this->createForm(FlightType::class, $flight);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('airport_index');
+        }
+
+        return $this->render('flight/edit.html.twig', [
+            'flight' => $flight,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="flight_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Flight $flight): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$flight->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($flight);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('flight_index');
+    }
 }
