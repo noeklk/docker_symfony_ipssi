@@ -1,2 +1,5 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals: 
+        titre: 'SYMFONY - TP 1'
+        contenu : 'Calculateur Addition/Multiplication'

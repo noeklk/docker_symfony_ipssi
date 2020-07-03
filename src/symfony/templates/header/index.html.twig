@@ -1,0 +1,12 @@
+<nav class="header">
+	<div class="nav-wrapper">
+		<ul>
+			<li class="{% if (app.request.get('_route') == 'addition_action') or (app.request.get('_route') == 'addition') %}active{% endif %}">
+				<a href="{{path('addition')}}">Addition</a>
+			</li>
+			<li class="{% if (app.request.get('_route') == 'multiplication_action') or (app.request.get('_route') == 'multiplication') %}active{% endif %}">
+				<a href="{{path('multiplication')}}">Multiplication</a>
+			</li>
+		</ul>
+	</div>
+</nav>
