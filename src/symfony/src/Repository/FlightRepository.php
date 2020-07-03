@@ -19,6 +19,19 @@ class FlightRepository extends ServiceEntityRepository
         parent::__construct($registry, Flight::class);
     }
 
+    /**
+     * @return Flight[]
+     */
+    public function findByAircraft($aircraftId)
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.aircraft = :aircraftId')
+            ->setParameter('aircraftId', $aircraftId)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Flight[] Returns an array of Flight objects
     //  */

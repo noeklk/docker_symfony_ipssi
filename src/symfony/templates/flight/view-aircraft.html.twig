@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Détails d'un vol{% endblock %}
+
+{% block body %}
+<a href="{{ path('flight_index') }}">Voir tous les vols</a>
+<br />
+<a href="{{ path('aircraft_index') }}">Voir tous les avions</a>
+<h1>Vols</h1>
+{% for flight in flights %}
+    {# {{ flight.number }}
+{{ dump(flight) }} #}
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Départ</th>
+        <th>Arrivé</th>
+    </tr>
+    <tr>
+        <td>{{ flight.number }}</td>
+        <td>{{ flight.departure.name }}</td>
+        <td>{{ flight.arrival.name }}</td>
+    </tr>
+</table>
+{% endfor %}
+
+{% endblock %}

@@ -11,6 +11,7 @@
         <th>Départ</th>
         <th>Arrivée</th>
         <th>Prix</th>
+        <th>Avion</th>
     </tr>
     {% for flight in flights %}
         <tr>
@@ -19,6 +20,7 @@
             <td>{{ flight.departure.name }}</td>
             <td>{{ flight.arrival.name }}</td>
             <td>{{ flight.price }}</td>
+            <td>{{ flight.aircraft.id }}</td>
         </tr>
     {% else %}
         <tr>

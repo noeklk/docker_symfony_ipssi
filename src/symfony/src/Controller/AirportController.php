@@ -109,17 +109,7 @@ class AirportController extends AbstractController
 
         $airport = new Airport();
         $airport->setIdent('XXXX');
-        $airport->setName('Test ajout aeroport 2');
-
-        $flight = new Flight();
-        $flight->setNumber('XX999');
-
-        $arrival = $this->_repository->find(4185);
-
-        $flight->setArrival($arrival);
-        $flight->setDeparture($airport);
-
-        $airport->addDeparture($flight);
+        $airport->setName('Test ajout aeroport 3');
 
         $em->persist($airport);
         $em->flush();

@@ -8,14 +8,31 @@
 <br>
 <table>
     <tr>
+        <th>Id</th>
         <th>Constructeur</th>
         <th>Modèle</th>
+        <th>Vol Effectués</th>
     </tr>
     {% for aircraft in aircrafts %}
         <tr>
             <td>{{ aircraft.id }}</td>
             <td>{{ aircraft.manufacturer }}</td>
             <td>{{ aircraft.basicType }}</td>
+            <td> 
+                <a href="{{ path('flight_aircraft_view', { 'id': aircraft.id }) }}">Voir les vols</a>
+                {# <select> #}
+            {# {% for elements in aircraft.flight %} #}
+                {# <td>{{ dump(elements) }}</td> #}
+                {# <option value="">{{ elements.id }}</option> #}
+                {# <td>{{ elements.id }}</td> #}
+                {# {% for id in elements %}
+                <td>{{ id }}</td>
+                {% endfor %} #}
+            {# {% endfor %} #}
+                {# </select> #}
+            </td>
+            {# <td>{{ dump(aircraft) }}</td> #}
+
         </tr>
     {% else %}
         <tr>

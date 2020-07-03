@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Airport;
 use App\Entity\Flight;
+use App\Entity\Aircraft;
 
 class FlightType extends AbstractType
 {
@@ -24,6 +25,10 @@ class FlightType extends AbstractType
             ->add('arrival', EntityType::class, array(
                 'class' => Airport::class,
                 'choice_label' => 'name'
+            ))
+            ->add('aircraft', EntityType::class, array(
+                'class' => Aircraft::class,
+                'choice_label' => 'basicType'
             ))
             ->add('price');
     }

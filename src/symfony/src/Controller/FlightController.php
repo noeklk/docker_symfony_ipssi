@@ -51,6 +51,23 @@ class FlightController extends AbstractController
     }
 
     /**
+     * @Route("/view/aircraft/{id}", name="flight_aircraft_view")
+     */
+    public function viewAircraftAction($id)
+    {
+        $flights = $this->_repository->findByAircraft($id);
+
+        if (is_null($flights)) {
+            throw $this->createNotFoundException('Page introuvable.');
+        }
+
+        return $this->render('flight/view-aircraft.html.twig', array(
+            "flights" => $flights
+        ));
+    }
+
+
+    /**
      * @Route("/add", name="flight_add")
      */
     public function addAction(Request $request)
