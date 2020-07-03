@@ -5,8 +5,5 @@
 {% block body %}
 <a href="{{ path('aircraft_index') }}">Retour</a>
 <h1>Ajouter un avion</h1>
-{{ form_start(formulaire) }}
-    {{ form_widget(formulaire) }}
-    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
-{{ form_end(formulaire) }}
+{{ include('aircraft/_form.html.twig', {'button_label': 'Ajouter'}) }}
 {% endblock %}
