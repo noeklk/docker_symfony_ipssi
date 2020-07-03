@@ -11,10 +11,63 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
+    <table>
+        <thead>
+            <tr>
+                <th>+</th>
+                {% for i in range(xmin,xmax,1) %} 
+                <th>{{ i }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for j in range(ymin,ymax,1) %} 
+            <tr>
+                <th>{{j}}</th>
+                {% for k in range(xmin,xmax,1) %}
+                <td>{{ j + k }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{# 
     <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/symfony/src/Controller/AdditionController.php'|file_link(0) }}">src/Controller/AdditionController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/symfony/templates/addition/index.html.twig'|file_link(0) }}">templates/addition/index.html.twig</a></code></li>
+        <li>
+            <a href="{{ path('addition', {'xmin' : app.session.get('xmin') , 'xmax' : app.session.get('xmax') ,'ymin' : app.session.get('ymin') ,'ymax' : (app.session.get('ymax')+ 1) }) }}">Ajouter une ligne</a>
+        </li>
+       <li>
+            <a href="{{ path('addition', {'xmin' : app.session.get('xmin') ,'xmax' : app.session.get('xmax') ,'ymin' : app.session.get('ymin') ,'ymax' : (app.session.get('ymax') - 1) }) }}">Supprimer une ligne</a>
+        </li>
+    </ul>
+
+    <ul>
+        
+         <li>
+            <a href="{{ path('addition', {'xmin' : app.session.get('xmin') ,'xmax' : app.session.get('xmax') + 1  ,'ymin' : app.session.get('ymin') ,'ymax' : app.session.get('ymax') }) }}">Ajouter une colonne</a>
+        </li>
+        <li>
+            <a href="{{ path('addition', {'xmin' : app.session.get('xmin') ,'xmax' : (app.session.get('xmax') - 1) ,'ymin' : app.session.get('ymin') ,'ymax' : app.session.get('ymax') }) }}">Supprimer une colonne</a>
+        </li>
+        
+    </ul> #}
+
+    <ul>
+        <li>
+            <a href="{{ path('addition_action', {'xmin' : xmin ,'xmax' : xmax ,'ymin' : ymin ,'ymax' : (ymax + 1) }) }}">Ajouter une ligne</a>
+        </li>
+        <li>
+            <a href="{{ path('addition_action', {'xmin' : xmin ,'xmax' : (xmax + 1) ,'ymin' : ymin ,'ymax' : ymax }) }}">Ajouter une colonne</a>
+        </li>
+    </ul>
+
+    <ul>
+        <li>
+            <a href="{{ path('addition_action', {'xmin' : xmin ,'xmax' : xmax ,'ymin' : ymin ,'ymax' : (ymax - 1) }) }}">Supprimer une ligne</a>
+        </li>
+        <li>
+            <a href="{{ path('addition_action', {'xmin' : xmin ,'xmax' : (xmax - 1) ,'ymin' : ymin ,'ymax' : ymax }) }}">Supprimer une colonne</a>
+        </li>
     </ul>
 </div>
 {% endblock %}
