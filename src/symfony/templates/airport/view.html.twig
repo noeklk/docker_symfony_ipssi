@@ -3,14 +3,19 @@
 {% block title %}Détails d'un aéroport{% endblock %}
 
 {% block body %}
-<a href="{{ path('airport_index') }}">Retour</a>
 <h1>{{ airport.name }}</h1>
-<ul>
-    <li>Identité : {{ airport.ident }}</li>
-    <li>Pays : {{ airport.isoCountry }}</li>
-</ul>    
+<table class="table">
+    <tr>
+        <th>Identifiant</th>
+        <th>Pays</th>
+    </tr>
+    <tr>
+        <td>{{ airport.ident }}</td>
+        <td>{{ airport.isoCountry }}</td>
+    </tr>
+</table>    
 <h2>Vols au départ</h2>
-<table>
+<table class="table">
     <tr>
         <th>Numéro</th>
         <th>Destination</th>
@@ -28,7 +33,7 @@
 </table>
 
 <h2>Vols à l'arrivée</h2>
-<table>
+<table class="table">
     <tr>
         <th>Numéro</th>
         <th>Provenance</th>

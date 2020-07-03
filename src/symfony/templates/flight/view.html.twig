@@ -3,15 +3,40 @@
 {% block title %}Détails d'un vol{% endblock %}
 
 {% block body %}
-<a href="{{ path('flight_index') }}">Retour</a>
 <h1>Vol {{ flight.number }}</h1>
-<ul>
-    <li>Départ : {{ flight.departure.iataCode }} - {{ flight.departure.name }}</li>
-    <li>Arrivée : {{ flight.arrival.iataCode }} - {{ flight.arrival.name }}</li>
-    <li>Aircraft : {{ flight.aircraft.basicType }} - {{ flight.aircraft.manufacturer }}</li>
-</ul>    
+<table class="table">
+    <tr>
+        <th>Départ</th>
+        <th>Arrivé</th>
+        <th>Avion</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="{{ path('airport_view', { 'id': flight.departure.id }) }}">
+                {{ flight.departure.iataCode }} - {{ flight.departure.name }}
+            </a>
+        </td>
+        <td>
+            <a href="{{ path('airport_view', { 'id': flight.arrival.id }) }}">
+                {{ flight.arrival.iataCode }} - {{ flight.arrival.name }}
+            </a>
+        </td>
+        <td> 
+        {% if flight.aircraft %}
+            <a href="{{ path('aircraft_show', { 'id': flight.aircraft.id }) }}">
+                {{ flight.aircraft.basicType }} - {{ flight.aircraft.manufacturer }}
+            </a>
+        {% else %}
+            Pas d'avion denifie pour ce vol
+        {% endif %}
+        </td>
+    </tr>
+
+</table>    
+
 <h2>Passagers</h2>
-<table>
+
+<table class="table">
     <tr>
         <th>Nom</th>
         <th>Prénom</th>

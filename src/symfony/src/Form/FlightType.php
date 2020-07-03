@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Aircraft;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,11 +25,8 @@ class FlightType extends AbstractType
                 'class' => Airport::class,
                 'choice_label' => 'name'
             ))
-            ->add('aircraft', EntityType::class, array(
-                'class' => Aircraft::class,
-                'choice_label' => 'basicType'
-            ))
-            ->add('price');
+            ->add('price')
+            ->add('save', SubmitType::class, ['label' => 'Créer le vol']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

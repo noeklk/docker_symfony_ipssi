@@ -24,7 +24,7 @@
 
     <h1>Vols</h1>
 
-    <table>
+    <table class="table">
     <tr>
         <th>Vol numéro</th>
         <th>Départ</th>
@@ -43,10 +43,7 @@
     {% endfor %}
 </table>
 
-
-    <a href="{{ path('aircraft_index') }}">back to list</a>
-
-    <a href="{{ path('aircraft_edit', {'id': aircraft.id}) }}">edit</a>
-
+    <a class="btn btn-success" href="{{ path('aircraft_edit', {'id': aircraft.id}) }}">edit</a>
+    
     {{ include('aircraft/_delete_form.html.twig') }}
 {% endblock %}

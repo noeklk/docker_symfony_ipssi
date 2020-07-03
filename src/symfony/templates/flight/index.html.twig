@@ -4,7 +4,7 @@
 
 {% block body %}
 <h1>Liste des vols</h1>
-<table>
+<table class="table">
     <tr>
         <th>Id</th>
         <th>Numéro</th>
@@ -26,4 +26,6 @@
         </tr>
     {% endfor %}
 </table>
+
+<a class="btn btn-success" href="{{ path('flight_add') }}">Ajouter</a>
 {% endblock %}
