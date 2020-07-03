@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Table d'addition{% endblock %}
+
+{% block body %}
+    <div class="center-align">
+        <h1>Table d'addition<h1>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>+</th>
+            {%  for c in colonne %}
+                <th>{{c}}</th>
+            {%  endfor %}
+            <td style="width:100px;">
+                <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax')+1, 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')})}}">
+                    <i class="material-icons round">add</i>
+                </a>
+                <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax')-1, 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')})}}">
+                    <i class="material-icons round">remove</i>
+                </a>
+            </td>
+        </tr> 
+        {%  for l in ligne %}
+            <tr>
+                <th>{{l}}</th>
+                {%  for c in colonne %}
+                    <td>{{l+c}}</th>
+                {%  endfor %}
+            </tr>
+        {%  endfor %}
+        <tr>
+            <td style="width:100px;">
+                <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax'), 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')+1})}}">
+                    <i class="material-icons round">add</i>
+                </a>
+                <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax'), 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')-1})}}">
+                    <i class="material-icons round">remove</i>
+                </a>
+            </td>
+        </tr>
+    </table>
+
+    {% endblock %}

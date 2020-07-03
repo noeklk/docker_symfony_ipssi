@@ -1,0 +1,14 @@
+<nav class="header">
+	<div class="nav-wrapper">
+		<a href="#" class="brand-logo">{{name}}</a>
+		<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<li class="{% if (app.request.get('_route') starts with 'addition') %}active{% endif %}">
+				<a href="{{path('addition_index')}}">Addition</a>
+			</li>
+			<li class="{% if (app.request.get('_route') starts with 'multiplication') %}active{% endif %}">
+				<a href="{{path('multiplication_index')}}">Multiplication</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
