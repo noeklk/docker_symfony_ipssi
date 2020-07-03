@@ -3,6 +3,10 @@ html ,body {
     height: 100%;
 }
 
+body {
+    background-color: rgb(228, 228, 228);
+}
+
 * {
     margin: 0;
     padding: 0;
