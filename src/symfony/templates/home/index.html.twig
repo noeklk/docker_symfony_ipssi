@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<a class="btn btn-primary" href="{{ path('airport_index') }}">Airports</a>
+<a class="btn btn-success" href="{{ path('flight_index') }}">Flights</a>
+<a class="btn btn-warning" href="{{ path('aircraft_index') }}">Aircrafts</a>
+{% endblock %}

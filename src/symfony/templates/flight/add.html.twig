@@ -3,10 +3,8 @@
 {% block title %}Ajout de vol{% endblock %}
 
 {% block body %}
-<a href="{{ path('flight_index') }}">Retour</a>
 <h1>Ajouter un vol</h1>
 {{ form_start(formulaire) }}
     {{ form_widget(formulaire) }}
-    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
 {{ form_end(formulaire) }}
 {% endblock %}

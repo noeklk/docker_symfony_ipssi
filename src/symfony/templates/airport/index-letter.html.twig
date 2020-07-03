@@ -9,7 +9,7 @@
 <a class="{{ letterChosen == letter ? 'active' : '' }}" 
     href="{{ path('airport_list_alpha', { 'letter': letter }) }}">{{ letter }}</a>
 {% endfor %}
-<table>
+<table class="table">
     <tr>
         <th>Id</th>
         <th>Identité</th>

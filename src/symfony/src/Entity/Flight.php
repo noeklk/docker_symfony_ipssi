@@ -47,6 +47,12 @@ class Flight
      */
     private $price;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Aircraft", inversedBy="flights")
+     * @ORM\JoinColumn(name="aircraft_id", referencedColumnName="id")
+     */
+    private $aircraft;
+
     public function __construct()
     {
         $this->passengers = new ArrayCollection();
@@ -127,6 +133,18 @@ class Flight
         if ($this->passengers->contains($passenger)) {
             $this->passengers->removeElement($passenger);
         }
+
+        return $this;
+    }
+
+    public function getAircraft(): ?Aircraft
+    {
+        return $this->aircraft;
+    }
+
+    public function setAircraft(?Aircraft $aircraft)
+    {
+        $this->aircraft = $aircraft;
 
         return $this;
     }

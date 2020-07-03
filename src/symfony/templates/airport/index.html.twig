@@ -4,12 +4,11 @@
 
 {% block body %}
 <h1>Liste des aéroports</h1>
-<a href="{{ path('airport_add') }}">Ajouter</a>
 <br>
 {% for letter in 'A'..'Z' %} 
 <a href="{{ path('airport_list_alpha', { 'letter': letter }) }}">{{ letter }}</a>
 {% endfor %}
-<table>
+<table class="table">
     <tr>
         <th>Id
             <a href="{{ path('airport_index', { 'page': 1, 'col': 'id', 'sens': 'desc' }) }}">&uarr;</a>
@@ -22,17 +21,18 @@
         <th>Nom</th>
         <th>Pays</th>
         <th>Code IATA</th>
+        <th>Actions</th>
     </tr>
     {% for airport in airports %}
         <tr>
             <td>{{ airport.id }}</td>
             <td>{{ airport.ident }}</td>
-            <td><a href="{{ path('airport_view', { 'id': airport.id }) }}">{{ airport.name }}</a></td>
+            <td>{{ airport.name }}</td>
             <td>{{ airport.isoCountry }}</td>
             <td>{{ airport.iataCode }}</td>
             <td>
-                <a href="{{ path('airport_delete', { 'id': airport.id }) }}">Supprimer</a>
-                <a href="{{ path('airport_edit', { 'id': airport.id }) }}">Modifier</a>
+                <a class="btn btn-info" href="{{ path('airport_view', { 'id': airport.id }) }}">Show</a>
+                <a class="btn btn-success" href="{{ path('airport_edit', { 'id': airport.id }) }}">Edit</a>
             </td>
         </tr>
     {% else %}
@@ -49,4 +49,7 @@ Page {{ page }}
 {% if page * 20 < airportsNumber %}
 <a href="{{ path('airport_index', { 'page': page + 1, 'col': col, 'sens': sens }) }}">Page suivante</a>
 {% endif %}
+<br></br>
+<a class="btn btn-primary" href="{{ path('airport_add') }}">create new</a>
+
 {% endblock %}

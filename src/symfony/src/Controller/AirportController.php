@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Airport;
 use App\Entity\Flight;
+use App\Form\AirportType;
 use App\Repository\AirportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /** @Route("/airport") */
@@ -42,7 +44,7 @@ class AirportController extends AbstractController
     {
         $airports = $this->_repository->findAllByFirstLetter($letter);
 
-        return $this->render('Airport/index-letter.html.twig', array(
+        return $this->render('airport/index-letter.html.twig', array(
             "airports" => $airports,
             "letterChosen" => $letter
         ));
@@ -65,65 +67,59 @@ class AirportController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="airport_delete")
+     * @Route("/{id}", name="airport_delete", methods={"DELETE"})
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, Airport $airport)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $airport = $this->_repository->find($id);
-
-        if (is_null($airport))
-            throw $this->createNotFoundException('Page introuvable.');
-
-        $em->remove($airport);
-        $em->flush();
+        if ($this->isCsrfTokenValid('delete' . $airport->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($airport);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('airport_index');
     }
 
     /**
-     * @Route("/edit/{id}", name="airport_edit")
+     * @Route("/edit/{id}", name="airport_edit", methods={"GET","POST"})
      */
-    public function editAction($id)
+    public function editAction(Request $request, Airport $airport)
     {
-        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(AirportType::class, $airport);
+        $form->handleRequest($request);
 
-        $airport = $this->_repository->find($id);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
 
-        if (is_null($airport))
-            throw $this->createNotFoundException('Page introuvable.');
+            return $this->redirectToRoute('airport_index');
+        }
 
-        $airport->setName($airport->getName() . 'Z');
-        $em->flush();
-
-        return $this->redirectToRoute('airport_index');
+        return $this->render('airport/edit.html.twig', [
+            'airport' => $airport,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
      * @Route("/add", name="airport_add")
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $airport = new Airport();
-        $airport->setIdent('XXXX');
-        $airport->setName('Test ajout aeroport 2');
+        $form = $this->createForm(AirportType::class, $airport);
+        $form->handleRequest($request);
 
-        $flight = new Flight();
-        $flight->setNumber('XX999');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($airport);
+            $entityManager->flush();
 
-        $arrival = $this->_repository->find(4185);
+            return $this->redirectToRoute('airport_index');
+        }
 
-        $flight->setArrival($arrival);
-        $flight->setDeparture($airport);
-
-        $airport->addDeparture($flight);
-
-        $em->persist($airport);
-        $em->flush();
-
-        return $this->redirectToRoute('airport_index');
+        return $this->render('airport/add.html.twig', [
+            'airport' => $airport,
+            'form' => $form->createView(),
+        ]);
     }
 }

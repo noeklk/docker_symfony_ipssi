@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aircraft{% endblock %}
+
+{% block body %}
+    <h1>Aircraft</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ aircraft.id }}</td>
+            </tr>
+            <tr>
+                <th>Manufacturer</th>
+                <td>{{ aircraft.manufacturer }}</td>
+            </tr>
+            <tr>
+                <th>BasicType</th>
+                <td>{{ aircraft.basicType }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>Vols</h1>
+
+    <table class="table">
+    <tr>
+        <th>Vol numéro</th>
+        <th>Départ</th>
+        <th>Arrivé</th>
+    </tr>
+    {% for flight in aircraft.flights %}
+        <tr>
+            <td>{{ flight.number }}</td>
+            <td>{{ flight.departure.iataCode }} - {{ flight.departure.name }}</td>
+            <td>{{ flight.arrival.iataCode }} - {{ flight.arrival.name }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3">Aucun Vol sur ce model</td>
+        </tr>
+    {% endfor %}
+</table>
+
+    <a class="btn btn-success" href="{{ path('aircraft_edit', {'id': aircraft.id}) }}">edit</a>
+    
+    {{ include('aircraft/_delete_form.html.twig') }}
+{% endblock %}
