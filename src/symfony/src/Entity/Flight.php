@@ -136,4 +136,16 @@ class Flight
 
         return $this;
     }
+
+    public function getAircraft(): ?Aircraft
+    {
+        return $this->aircraft;
+    }
+
+    public function setAircraft(?Aircraft $aircraft)
+    {
+        $this->aircraft = $aircraft;
+
+        return $this;
+    }
 }
