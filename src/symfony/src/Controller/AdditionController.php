@@ -14,16 +14,8 @@ class AdditionController extends AbstractController
      */
     public function additionAction($xmin,$xmax,$ymin,$ymax, SessionInterface $session)
     {
-        $ligne = [];
-        $colonne = [];
-
-        for ($i=$xmin; $i <= $xmax; $i++) { 
-            array_push($colonne, $i);
-        }
-
-        for ($i=$ymin; $i <= $ymax; $i++) { 
-            array_push($ligne, $i);
-        }
+        $ligne = range($ymin, $ymax);
+        $colonne = range($xmin, $xmax);
 
         //Save in session
         $session->set('xmin', $xmin);
@@ -43,7 +35,6 @@ class AdditionController extends AbstractController
      */
     public function addition(SessionInterface $session)
     {
-        $session->start();
         //Get from session
         $xmin = $session->get('xmin', 1);
         $xmax = $session->get('xmax', 10);
@@ -56,18 +47,8 @@ class AdditionController extends AbstractController
         $session->set('ymin', $ymin);
         $session->set('ymax', $ymax);
         
-        $ligne = [];
-        $colonne = [];
-
-        //tableau de colonne de $xmin à $xmax
-        for ($i=$xmin; $i <= $xmax; $i++) { 
-            array_push($colonne, $i);
-        }
-
-        //tableau de ligne de $ymin à $ymax
-        for ($i=$ymin; $i <= $ymax; $i++) { 
-            array_push($ligne, $i);
-        }
+        $ligne = range($ymin, $ymax);
+        $colonne = range($xmin, $xmax);
 
         return $this->render('addition/index.html.twig', [
             'ligne' => $ligne,

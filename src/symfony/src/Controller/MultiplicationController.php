@@ -13,16 +13,8 @@ class MultiplicationController extends AbstractController
      */
     public function multiplicationAction($xmin,$xmax,$ymin,$ymax, SessionInterface $session)
     {
-        $ligne = [];
-        $colonne = [];
-
-        for ($i=$xmin; $i <= $xmax; $i++) { 
-            array_push($colonne, $i);
-        }
-
-        for ($i=$ymin; $i <= $ymax; $i++) { 
-            array_push($ligne, $i);
-        }
+        $ligne = range($ymin, $ymax);
+        $colonne = range($xmin, $xmax);
 
         //Save in session
         $session->set('xmin', $xmin);
@@ -55,19 +47,8 @@ class MultiplicationController extends AbstractController
         $session->set('ymin', $ymin);
         $session->set('ymax', $ymax);
 
-        $ligne = [];
-        $colonne = [];
-
-        //tableau de colonne de $xmin à $xmax
-        for ($i=$xmin; $i <= $xmax; $i++) { 
-            array_push($colonne, $i);
-        }
-
-        //tableau de ligne de $ymin à $ymax
-        for ($i=$ymin; $i <= $ymax; $i++) { 
-            array_push($ligne, $i);
-        }
-
+        $ligne = range($ymin, $ymax);
+        $colonne = range($xmin, $xmax);
 
         return $this->render('multiplication/index.html.twig', [
             'ligne' => $ligne,
