@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Aircraft;
-use App\Entity\Airport;
-use App\Entity\Flight;
+use App\Form\AircraftType;
 use App\Repository\AircraftRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /** @Route("/aircraft") */
@@ -34,22 +34,24 @@ class AircraftController extends AbstractController
     /**
      * @Route("/add", name="aircraft_add")
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $aircraft = new Aircraft();
-        $aircraft->setManufacturer('Boeing');
-        $aircraft->setBasicType('AR-330-XX');
+        $formulaire = $this->get('form.factory')->create(AircraftType::class, $aircraft);
 
-        $aircraft2 = new Aircraft();
-        $aircraft2->setManufacturer('Boeing');
-        $aircraft2->setBasicType('AR-320-YY');
+        if ($request->isMethod('POST')) {
+            $formulaire->handleRequest($request);
 
-        $em->persist($aircraft);
-        $em->persist($aircraft2);
-        $em->flush();
+            if ($formulaire->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($aircraft);
+                $em->flush();
+                return $this->redirectToRoute('aircraft_index');
+            }
+        }
 
-        return $this->redirectToRoute('aircraft_index');
+        return $this->render('aircraft/add.html.twig', array(
+            'formulaire' => $formulaire->createView()
+        ));
     }
 }
