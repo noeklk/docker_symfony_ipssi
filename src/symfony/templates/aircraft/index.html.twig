@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste des avions{% endblock %}
+
+{% block body %}
+<h1>Liste des avions</h1>
+<a href="{{ path('aircraft_add') }}">Ajouter</a>
+<br>
+<table>
+    <tr>
+        <th>Constructeur</th>
+        <th>Modèle</th>
+    </tr>
+    {% for aircraft in aircrafts %}
+        <tr>
+            <td>{{ aircraft.id }}</td>
+            <td>{{ aircraft.manufacturer }}</td>
+            <td>{{ aircraft.basicType }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">Aucun avion</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
