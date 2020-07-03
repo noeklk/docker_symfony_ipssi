@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier un avion{% endblock %}
+
+{% block body %}
+<a href="{{ path('aircraft_index') }}">Retour</a>
+<h1>Modifier un avion</h1>
+{{ form_start(formulaire) }}
+    {{ form_widget(formulaire) }}
+    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(formulaire) }}
+{% endblock %}

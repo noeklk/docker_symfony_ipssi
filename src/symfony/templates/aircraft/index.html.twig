@@ -12,6 +12,7 @@
         <th>Constructeur</th>
         <th>Modèle</th>
         <th>Vol Effectués</th>
+        <th>Actions</th>
     </tr>
     {% for aircraft in aircrafts %}
         <tr>
@@ -20,24 +21,20 @@
             <td>{{ aircraft.basicType }}</td>
             <td> 
                 <a href="{{ path('flight_aircraft_view', { 'id': aircraft.id }) }}">Voir les vols</a>
-                {# <select> #}
-            {# {% for elements in aircraft.flight %} #}
-                {# <td>{{ dump(elements) }}</td> #}
-                {# <option value="">{{ elements.id }}</option> #}
-                {# <td>{{ elements.id }}</td> #}
-                {# {% for id in elements %}
-                <td>{{ id }}</td>
-                {% endfor %} #}
-            {# {% endfor %} #}
-                {# </select> #}
             </td>
-            {# <td>{{ dump(aircraft) }}</td> #}
-
+            <td> 
+            <span>
+                <a href="{{ path('aircraft_edit', { 'id': aircraft.id }) }}">Modifier</a>
+                -
+                <a href="{{ path('aircraft_delete', { 'id': aircraft.id }) }}" onclick="return confirm('Êtes vous sûr de vouloir supprimer cet avion ?')">Supprimer</a>
+            </span>
+            </td>
         </tr>
     {% else %}
         <tr>
             <td colspan="5">Aucun avion</td>
         </tr>
     {% endfor %}
+
 </table>
 {% endblock %}

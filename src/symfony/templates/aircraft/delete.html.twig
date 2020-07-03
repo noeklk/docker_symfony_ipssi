@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Supprimer un avion{% endblock %}
+
+{% block body %}
+<a href="{{ path('aircraft_index') }}">Retour</a>
+<h1>Supprimer un avion</h1>
+{% if deleteMessage %}
+    <p>{{ deleteMessage}} </p>
+{% endif %}
+
+{% endblock %}
