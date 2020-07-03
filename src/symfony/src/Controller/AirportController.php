@@ -44,7 +44,7 @@ class AirportController extends AbstractController
     {
         $airports = $this->_repository->findAllByFirstLetter($letter);
 
-        return $this->render('Airport/index-letter.html.twig', array(
+        return $this->render('airport/index-letter.html.twig', array(
             "airports" => $airports,
             "letterChosen" => $letter
         ));
@@ -71,7 +71,7 @@ class AirportController extends AbstractController
      */
     public function deleteAction(Request $request, Airport $airport)
     {
-        if ($this->isCsrfTokenValid('delete'.$airport->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $airport->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($airport);
             $entityManager->flush();
