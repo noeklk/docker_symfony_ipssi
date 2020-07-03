@@ -13,7 +13,7 @@
             {%  for c in colonne %}
                 <th>{{c}}</th>
             {%  endfor %}
-            <td>
+            <td style="width:100px;">
                 <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax')+1, 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')})}}">
                     <i class="material-icons round">add</i>
                 </a>
@@ -31,7 +31,7 @@
             </tr>
         {%  endfor %}
         <tr>
-            <td>
+            <td style="width:100px;">
                 <a href="{{path('addition', {'xmin': app.session.get('xmin') , 'xmax': app.session.get('xmax'), 'ymin': app.session.get('ymin') , 'ymax': app.session.get('ymax')+1})}}">
                     <i class="material-icons round">add</i>
                 </a>
