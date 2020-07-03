@@ -31,7 +31,7 @@ class FlightType extends AbstractType
                 'choice_label' => 'basicType'
             ))
             ->add('price')
-            ->add('save', SubmitType::class, ['label' => 'Créer le vol']);
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

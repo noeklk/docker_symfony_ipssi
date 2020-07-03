@@ -11,14 +11,19 @@
         <th>Départ</th>
         <th>Arrivée</th>
         <th>Prix</th>
+        <th>Actions</th>
     </tr>
     {% for flight in flights %}
         <tr>
             <td>{{ flight.id }}</td>
-            <td><a href="{{ path('flight_view', { 'id': flight.id }) }}">{{ flight.number }}</a></td>
+            <td>{{ flight.number }}</td>
             <td>{{ flight.departure.name }}</td>
             <td>{{ flight.arrival.name }}</td>
             <td>{{ flight.price }}</td>
+            <td>
+                <a class="btn btn-info" href="{{ path('flight_view', { 'id': flight.id }) }}">Show</a>
+                <a class="btn btn-success" href="{{ path('flight_edit', { 'id': flight.id }) }}">Edit</a>
+            </td>
         </tr>
     {% else %}
         <tr>
@@ -27,5 +32,5 @@
     {% endfor %}
 </table>
 
-<a class="btn btn-success" href="{{ path('flight_add') }}">Ajouter</a>
+<a class="btn btn-primary" href="{{ path('flight_add') }}">create new</a>
 {% endblock %}

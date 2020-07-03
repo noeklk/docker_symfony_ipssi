@@ -16,7 +16,7 @@ class AircraftType extends AbstractType
         $builder
             ->add('manufacturer')
             ->add('basicType')
-            ->add('save', SubmitType::class, ['label' => 'Créer Aircraft'])
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
         ;
     }
 

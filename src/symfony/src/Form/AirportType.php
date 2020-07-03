@@ -23,7 +23,7 @@ class AirportType extends AbstractType
             ->add('isoCountry')
             ->add('municipality')
             ->add('iataCode')
-            ->add('save', SubmitType::class, ['label' => "Créer l'aeroport"])
+            ->add('save', SubmitType::class, ['label' => "Enregistrer"])
         ;
     }
 
